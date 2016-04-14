@@ -7,8 +7,9 @@ mongodb:
   volumes:
    - ./mongo:/data/db:rw
   volume_driver: local
+  
 hygieia-api:
-  image: hygieia-api:latest
+  image: capitaloneio/hygieia-api:latest
   container_name: hygieia-api
   ports:
   - "8080:8080"
@@ -16,8 +17,9 @@ hygieia-api:
   - ./logs:/hygieia/logs
   links:
   - mongodb:mongo
+  
 hygieia-ui:
-  image: hygieia-ui:latest
+  image: capitaloneio/hygieia-ui:latest
   container_name: hygieia-ui
   ports:
   - "8088:80"
@@ -26,7 +28,7 @@ hygieia-ui:
 
 
 hygieia-github-scm-collector:
-  image: hygieia-github-scm-collector:latest
+  image: capitalone/hygieia-github-scm-collector:latest
   container_name: hygieia-github
   volumes:
   - ./logs:/hygieia/logs
@@ -40,23 +42,23 @@ hygieia-github-scm-collector:
 #  - GITHUB_COMMIT_THREASHOLD_DAYS=15
 
 
-hygieia-jira-feature-collector:
-  image: hygieia-jira-feature-collector:latest
-  container_name: hygieia-jira
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
-  environment:
-        # you can override these by creating a docker-compose.overider.yml and put in entries like this:
-        #REQUIRED Entries
-  - JIRA_BASE_URL=https://jira.atlassian.com
-        #64-bit encoded credentials with the pattern username:password
-        #on a mac you con create them with : echo "username:password" | base64
-        #reference:  https://www.base64decode.org/
-  - JIRA_CREDENTIALS=username:password
-
+#hygieia-jira-feature-collector:
+#  image: hygieia-jira-feature-collector:latest
+#  container_name: hygieia-jira
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
+#  environment:
+#        # you can override these by creating a docker-compose.overider.yml and put in entries like this:
+#        #REQUIRED Entries
+#  - JIRA_BASE_URL=https://jira.atlassian.com
+#        #64-bit encoded credentials with the pattern username:password
+#        #on a mac you con create them with : echo "username:password" | base64
+#        #reference:  https://www.base64decode.org/
+#  - JIRA_CREDENTIALS=username:password
+#
         #OPTIONAL - you may want ot tweek these
 #  - JIRA_CRON="0 * * * * *"
         #Start dates from which to begin collector data, if no other data is present - usually, a month back is appropriate (required)
@@ -111,14 +113,14 @@ hygieia-jira-feature-collector:
 #  - JIRA_EPIC_FIELD_NAME=customfield_10400
 
 
-hygieia-jenkins-build-collector:
-  image: hygieia-jenkins-build-collector:latest
-  container_name: hygieia-jenkins-build
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
+#hygieia-jenkins-build-collector:
+#  image: hygieia-jenkins-build-collector:latest
+#  container_name: hygieia-jenkins-build
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
 #  environment:
 #Jenkins server (required) - Can provide multiple
 #  - JENKINS_MASTER=ttp://jenkins.company.com
@@ -131,14 +133,14 @@ hygieia-jenkins-build-collector:
 #Determines if build console log is collected - defaults to false
 #  - JENKINS_SAVE_LOG=true
 
-hygieia-jenkins-cucumber-test-collector:
-  image: hygieia-jenkins-cucumber-test-collector:latest
-  container_name: hygieia-jenkins-cucumber
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
+#hygieia-jenkins-cucumber-test-collector:
+#  image: hygieia-jenkins-cucumber-test-collector:latest
+#  container_name: hygieia-jenkins-cucumber
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
 #  environment:
 #Jenkins server (required) - Can provide multiple
 #  - JENKINS_MASTER=ttp://jenkins.company.com
@@ -151,37 +153,37 @@ hygieia-jenkins-cucumber-test-collector:
 #Determines if build console log is collected - defaults to false
 #  - JENKINS_SAVE_LOG=true
 
-hygieia-sonar-codequality-collector:
-  image: hygieia-sonar-codequality-collector:latest
-  container_name: hygieia-sonar-codequality
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
+#hygieia-sonar-codequality-collector:
+#  image: hygieia-sonar-codequality-collector:latest
+#  container_name: hygieia-sonar-codequality
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
 #  environment:
 #  - SONAR_CRON=0 0/5 * * * *
 #  - SONAR_URL=http://localhost:9000
 
-hygieia-chat-ops-collector:
-  image: hygieia-chat-ops-collector:latest
-  container_name: hygieia-chat-ops
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
+#hygieia-chat-ops-collector:
+#  image: hygieia-chat-ops-collector:latest
+#  container_name: hygieia-chat-ops
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
 #  environment:
 #  - CHATOPS_CRON=0 0/5 * * * *
 
-hygieia-subversion-scm-collector:
-  image: hygieia-subversion-scm-collector:latest
-  container_name: hygieia-subversion
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
+#hygieia-subversion-scm-collector:
+#  image: hygieia-subversion-scm-collector:latest
+#  container_name: hygieia-subversion
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
 #  environment:
 #  - SUBVERSION_CRON:-0 0/5 * * * *
 
@@ -192,14 +194,14 @@ hygieia-subversion-scm-collector:
 #Maximum number of days to go back in time when fetching commits
 #  - SUBVERSION_COMMIT_THRESHOLD_DAYS=15
 
-hygieia-stash-scm-collector:
-  image: hygieia-stash-scm-collector:latest
-  container_name: hygieia-stash
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
+#hygieia-stash-scm-collector:
+#  image: hygieia-stash-scm-collector:latest
+#  container_name: hygieia-stash
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
 #  environment:
     #mandatory
 #  - STASH_HOST=mystashrepo.com/
@@ -210,14 +212,14 @@ hygieia-stash-scm-collector:
 #Maximum number of days to go back in time when fetching commits
 #  - STASH_COMMIT_THRESHOLD_DAYS=15
 
-hygieia-versionone-collector:
-  image: hygieia-versionone-collector:latest
-  container_name: hygieia-versionone
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
+#hygieia-versionone-collector:
+#  image: hygieia-versionone-collector:latest
+#  container_name: hygieia-versionone
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
 #  environment:
 #Page size for data calls (VersionOne recommended 2000)
 #  - VERSIONONE_PAGE_SIZE=2000
@@ -256,20 +258,20 @@ hygieia-versionone-collector:
 #  - VERSIONONE_DELTA_START_DATE=2015-03-01T00:00:00.000000
 #  - VERSIONONE_MASTER_START_DATE=2008-01-01T00:00:00.000000
 
-hygieia-udeploy-collector:
-  image: hygieia-udeploy-collector:latest
-  container_name: hygieia-udeploy
-  volumes:
-  - ./logs:/hygieia/logs
-  links:
-  - mongodb:mongo
-  - hygieia-api
-  environment:
-#UDeploy server (required) - Can provide multiple
-  - UDEPLOY_URL:-http://udeploy.company.com
-#UDeploy user name (required)
-  - UDEPLOY_USERNAME:-bobama
-#UDeploy password (required)
-  - UDEPLOY_PASSWORD:-s3cr3t
-#Collector schedule (required)
-#  - UDEPLOY_CRON:-0 0/5 * * * *
+#hygieia-udeploy-collector:
+#  image: hygieia-udeploy-collector:latest
+#  container_name: hygieia-udeploy
+#  volumes:
+#  - ./logs:/hygieia/logs
+#  links:
+#  - mongodb:mongo
+#  - hygieia-api
+#  environment:
+##UDeploy server (required) - Can provide multiple
+#  - UDEPLOY_URL:-http://udeploy.company.com
+##UDeploy user name (required)
+#  - UDEPLOY_USERNAME:-bobama
+##UDeploy password (required)
+#  - UDEPLOY_PASSWORD:-s3cr3t
+##Collector schedule (required)
+##  - UDEPLOY_CRON:-0 0/5 * * * *
