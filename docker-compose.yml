@@ -26,7 +26,15 @@ hygieia-ui:
   links:
   - hygieia-api
 
-
+hygieia-gitLab-scm-collector:
+  image: capitalone/hygieia-gitLab-scm-collector:latest
+  container_name: hygieia-gitLab
+  volumes:
+  - ./logs:/hygieia/logs
+  links:
+  - mongodb:mongo
+  - hygieia-api 
+  
 hygieia-github-scm-collector:
   image: capitalone/hygieia-github-scm-collector:latest
   container_name: hygieia-github

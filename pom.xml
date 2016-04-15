@@ -268,5 +268,7 @@
 
 		</profile>
 	</profiles>
-
+    <modules>
+        <module>gitLab-scm-collector</module>
+    </modules>
 </project>
