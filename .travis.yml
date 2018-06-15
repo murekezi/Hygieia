@@ -10,8 +10,8 @@ notifications:
     on_start: always   # options: [always|never|change] default: always
   email:
     recipients:
-      - amit.mawkin@capitalone.com
-      - tapabrata.pal@capitalone.com
+      - jmurekezi@gmail.com
+      - jmurekezi@gmail.com
     on_success: always #[always|never|change] # default: change
     on_failure: always # [always|never|change] # default: always
 
