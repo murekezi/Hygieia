@@ -271,4 +271,12 @@
     <modules>
         <module>gitLab-scm-collector</module>
     </modules>
+	<plugin>
+    <groupId>org.eluder.coveralls</groupId>
+    <artifactId>coveralls-maven-plugin</artifactId>
+    <version>4.3.0</version>
+    <configuration>
+        <repoToken>D8TWyQxn1wVlNAdQWclofkVBPbnAOmbobWpgg</repoToken>
+    </configuration>
+</plugin>
 </project>
